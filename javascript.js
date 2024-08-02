@@ -28,22 +28,25 @@ function calculateTotalMarks() {
 
 // Function to get words for total marks
 function getWords(total) {
-    const ones = ["", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten", "Eleven", "Twelve", "Thirteen", "Fourteen", "Fifteen", "Sixteen", "Seventeen", "Eighteen", "Nineteen"];
-    const tens = ["", "", "Twenty", "Thirty", "Forty", "Fifty", "Sixty", "Seventy", "Eighty", "Ninety"];
+  const ones = ["", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten", "Eleven", "Twelve", "Thirteen", "Fourteen", "Fifteen", "Sixteen", "Seventeen", "Eighteen", "Nineteen"];
+  const tens = ["", "", "Twenty", "Thirty", "Forty", "Fifty", "Sixty", "Seventy", "Eighty", "Ninety"];
+  const hund = ["", "One Hundred", "Two Hundred", "Three Hundred", "Four Hundred", "Five Hundred", "Six Hundred", "Seven Hundred", "Eight Hundred", "Nine Hundred"];
 
-    let words = "";
+  let words = "";
 
-    if (total === 0) {
-        words = "Zero Zero";
+  if (total === 0) {
+    words = "Zero Zero";
+  } else {
+    if (total < 20) {
+      words = ones[total];
+    } else if (total < 100) {
+      words = tens[Math.floor(total / 10)] + (total % 10 != 0 ? " " + ones[total % 10] : "");
     } else {
-        if (total < 20) {
-            words = ones[total];
-        } else {
-            words = tens[Math.floor(total / 10)] + (total % 10 != 0 ? " " + ones[total % 10] : "");
-        }
+      words = hund[Math.floor(total / 100)] + (total % 100 != 0 ? " " + getWords(total % 100) : "");
     }
+  }
 
-    return words + " " + ones[Math.floor(total / 100)] + " Hundred";
+  return words;
 }
 
 // Function to calculate result, percentage, and grade
